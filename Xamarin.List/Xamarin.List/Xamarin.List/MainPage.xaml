@@ -4,8 +4,20 @@
              xmlns:local="clr-namespace:Xamarin.List"
              x:Class="Xamarin.List.MainPage">
 
-	<Label Text="Welcome to Xamarin.Forms!" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
-
+    <StackLayout>
+        <SearchBar TextChanged="SearchBar_OnTextChanged"/>
+        <Label Margin="20, 0, 0, 0"  Text="Recent Searches" HorizontalOptions="StartAndExpand" />
+        <BoxView HeightRequest="1" HorizontalOptions="Fill" Color="Aqua"/>
+        <ListView x:Name="ListView" IsPullToRefreshEnabled="True" Refreshing="ListView_OnRefreshing">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{ Binding Name }" Detail="{Binding Status}">
+                        <TextCell.ContextActions>
+                            <MenuItem Text="Delete" CommandParameter="{ Binding . }" Clicked="MenuItem_OnClicked"/>
+                        </TextCell.ContextActions>
+                    </TextCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 </ContentPage>
